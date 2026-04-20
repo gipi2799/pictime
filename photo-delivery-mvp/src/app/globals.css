@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-ink-50: #f9f7f4;
+  --color-ink-100: #f3ede6;
+  --color-ink-200: #e8ddd0;
+  --color-ink-300: #d9c9b8;
+  --color-ink-400: #c4ac94;
+  --color-ink-500: #a8907c;
+  --color-ink-600: #8b7362;
+  --color-ink-700: #6e5f53;
+  --color-ink-800: #5a4c45;
+  --color-ink-900: #46373e;
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-sans {
+    font-family: var(--font-geist-sans);
+  }
+
+  @media (max-width: 640px) {
+    .hidden-mobile {
+      display: none;
+    }
+  }
+}
