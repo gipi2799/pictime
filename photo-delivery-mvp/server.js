@@ -5,9 +5,9 @@
  * Handles Prisma migrations gracefully and starts Next.js server
  */
 
-const { execFile, spawn } = require('child_process');
-const path = require('path');
-const { promisify } = require('util');
+import { spawn } from 'child_process';
+import { promisify } from 'util';
+import { execFile } from 'child_process';
 
 const exec = promisify(execFile);
 
