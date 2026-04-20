@@ -6,7 +6,8 @@
     "postinstall": "prisma generate",
     "dev": "prisma migrate deploy && next dev",
     "build": "prisma generate && next build",
-    "start": "prisma migrate deploy && next start",
+    "start": "node server.js",
+    "start:direct": "next start",
     "lint": "next lint",
     "db:seed": "tsx prisma/seed.ts",
     "db:migrate": "prisma migrate deploy"
