@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime  @default(now())
+  galleries    Gallery[]
+}
+
+model Gallery {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  photos    Photo[]
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Photo {
+  id           String      @id @default(cuid())
+  galleryId    String
+  gallery      Gallery     @relation(fields: [galleryId], references: [id], onDelete: Cascade)
+  filename     String
+  originalKey  String
+  thumbKey     String
+  previewKey   String
+  width        Int
+  height       Int
+  sortOrder    Int         @default(0)
+  favorites    Favorite[]
+  selections   Selection[]
+  createdAt    DateTime    @default(now())
+
+  @@index([galleryId])
+}
+
+model Favorite {
+  id        String @id @default(cuid())
+  photoId   String
+  photo     Photo  @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  visitorId String
+
+  @@unique([photoId, visitorId])
+  @@index([visitorId])
+}
+
+model Selection {
+  id        String @id @default(cuid())
+  photoId   String
+  photo     Photo  @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  visitorId String
+
+  @@unique([photoId, visitorId])
+  @@index([visitorId])
+}
